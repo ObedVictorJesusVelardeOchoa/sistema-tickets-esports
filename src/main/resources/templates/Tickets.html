@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/Tickets.css}" />
+    <title>ANARKIA GAMES</title>
+</head>
+
+<body class="bg-black-lower text-white">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top py-3 border-bottom border-secondary">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-white fs-1" th:href="@{/}">ANARKIA GAMES</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item me-lg-2 mb-2 mb-lg-0">
+                        <a class="btn bg-verdeClaro btn-outline-light nav-link text-black px-4 py-2 fw-bold" th:href="@{/Tickets}">Tickets</a>
+                    </li>
+                    <li class="nav-item me-lg-2 mb-2 mb-lg-0">
+                        <a class="nav-link btn bg-verdeClaro btn-outline-light text-white px-4 py-2 fw-bold rounded-pill" th:href="@{/Merch}">Merch</a>
+                    </li>
+                    <li class="nav-item me-lg-2 mb-2 mb-lg-0" sec:authorize="hasAuthority('Administrador')">
+                        <a class="nav-link btn btn-warning text-dark px-4 py-2 fw-bold" th:href="@{/AdminRegistro}">Panel Admin</a>
+                    </li>
+                    <li class="nav-item me-lg-2 mb-2 mb-lg-0" sec:authorize="isAnonymous()">
+                        <a class="nav-link btn bg-verdeClaro btn-outline-light text-white px-4 py-2 fw-bold rounded-pill" th:href="@{/InicioSesion}">Iniciar Sesión</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link btn btn-light btn-outline-anarkia text-white px-4 py-2 fw-bold rounded-pill" th:href="@{/Registrarse}">Registrate</a>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <a class="nav-link dropdown-toggle btn btn-light btn-outline-anarkia text-white px-4 py-2 fw-bold rounded-pill" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Mi Cuenta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" th:href="@{/Perfil}">Ver Perfil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="container py-5" id="ticket-section">
+        <div class="row">
+            <div class="col-lg-8">
+                <img src="Imagenes/Homepage2.png" class="img-fluid rounded" alt="Evento">
+                <div class="mt-4">
+                    <h2><b>Descripción</b></h2>
+                    <p>Únete al evento gamer más esperado: participa en las competiciones para demostrar tus habilidades
+                        y ganar increíbles premios, o adquiere tu entrada para vivir la emoción como espectador y
+                        disfrutar del mejor show de videojuegos en vivo.</p>
+                    <h3><b>Informacion Adicional</b></h3>
+                    <p><strong>Evento:</strong>Anarkia Games - Competencias de videojuegos.</p>
+                    <p><Strong>Lugar:</Strong>Jockey Plaza del Perú</p>
+                    <p><strong>Público recomendado:</strong> Apto para todas las edades (menores acompañados de un
+                        adulto).</p>
+                    <p><strong>Modalidades:</strong></p>
+                    <ul>
+                        <li><strong>Jugador:</strong> Participa en las competiciones y gana increíbles premios.</li>
+                        <li><strong>Espectador:</strong> Compra tu entrada y vive la emoción de los esports en vivo.
+                        </li>
+                    </ul>
+                    <p><strong>Organizacion y producción:</strong> Anarkia Games</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card bg-black-medium text-white rounded-3 ">
+                    <div class="card-body border-bottom">
+                        <h4 class="card-title">Unete al evento</h4>
+                        <p>Fecha: 14/12/25</p>
+                        <p>Horario: 13:00</p>
+
+                    </div>
+                    <div class="card card-body bg-black-medium text-white">
+                        <p>Entrada:</p>
+                        <p>Competidor</p>
+                        <p>s/35</p>
+                        <p>Espectador</p>
+                        <p>s/20</p>
+                    </div>
+
+                </div>
+                <h3 class="text-center mt-3">Elige tu ticket aquí</h3>
+                <div class="row justify-content-center">
+
+                    <div class="col-12 text-center">
+                        <a th:href="@{/TicketsII}" class="btn bg-verdeClaro btn-lg fw-bold px-5 text-uppercase">
+                            COMPRAR TICKET
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-muted pt-5 pb-4 border-top">
+        <div class="container text-center text-md-start">
+            <div class="row text-center text-md-start">
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-white">
+                        ANARKIA GAMES
+                    </h5>
+                    <p class="text-white mt-0 fs-5">&copy;2025</p>
+                </div>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <img th:src="@{/Imagenes/youtube.png}" alt="youtube" class="img-fluid d-block me-2"
+                            style="width: 40px" />
+                        <h5 class="text-uppercase mb-0 font-weight-bold text-white">
+                            ANARKIA GAMES
+                        </h5>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-2">
+                        <img th:src="@{/Imagenes/instagram.png}" alt="instagram" class="img-fluid d-block me-2"
+                            style="width: 40px" />
+                        <h5 class="text-uppercase mb-0 font-weight-bold text-white">
+                            ANARKIA GAMES
+                        </h5>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-2">
+                        <img th:src="@{/Imagenes/facebook.png}" alt="facebook" class="img-fluid d-block me-2"
+                            style="width: 40px" />
+                        <h5 class="text-uppercase mb-0 font-weight-bold text-white">
+                            ANARKIA GAMES
+                        </h5>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-2">
+                        <img th:src="@{/Imagenes/twitter.png}" alt="twitter" class="img-fluid d-block me-2"
+                            style="width: 40px" />
+                        <h5 class="text-uppercase mb-0 font-weight-bold text-white">
+                            ANARKIA GAMES
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
