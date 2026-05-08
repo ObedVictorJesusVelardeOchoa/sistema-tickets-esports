@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tickets | ANARKIA GAMES</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/css/Tickets-III.css}" />
+  
+  <style>
+    .hidden { display: none; }
+  </style>
+</head>
+
+<body class="bg-black-lower text-white">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top py-3 border-bottom border-secondary">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-white fs-1" th:href="@{/}">ANARKIA GAMES</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item me-lg-2 mb-2 mb-lg-0">
+                        <a class="btn bg-verdeClaro btn-outline-light nav-link text-black px-4 py-2 fw-bold" th:href="@{/Tickets}">Tickets</a>
+                    </li>
+                    <li class="nav-item me-lg-2 mb-2 mb-lg-0">
+                        <a class="nav-link btn bg-verdeClaro btn-outline-light text-white px-4 py-2 fw-bold rounded-pill" th:href="@{/Merch}">Merch</a>
+                    </li>
+                    <li class="nav-item me-lg-2 mb-2 mb-lg-0" sec:authorize="hasAuthority('Administrador')">
+                        <a class="nav-link btn btn-warning text-dark px-4 py-2 fw-bold" th:href="@{/AdminRegistro}">Panel Admin</a>
+                    </li>
+                    <li class="nav-item me-lg-2 mb-2 mb-lg-0" sec:authorize="isAnonymous()">
+                        <a class="nav-link btn bg-verdeClaro btn-outline-light text-white px-4 py-2 fw-bold rounded-pill" th:href="@{/InicioSesion}">Iniciar Sesión</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link btn btn-light btn-outline-anarkia text-white px-4 py-2 fw-bold rounded-pill" th:href="@{/Registrarse}">Registrate</a>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <a class="nav-link dropdown-toggle btn btn-light btn-outline-anarkia text-white px-4 py-2 fw-bold rounded-pill" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Mi Cuenta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" th:href="@{/Perfil}">Ver Perfil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+  <div class="container py-4 mt-5">
+
+    <h2 class="text-center mb-5 display-4">Tickets Disponibles</h2>
+
+    <div id="lista-tickets">
+      <div th:each="ticket : ${tickets}" class="card bg-gray text-white mb-5">
+        <div class="row g-0">
+          <div class="col-md-4 d-flex align-items-center justify-content-center bg-dark">
+            <img th:src="@{${ticket.imagenUrl}}" th:alt="${ticket.eventoNombre}" class="img-fluid w-100 h-100" style="max-height: 200px;">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body d-flex flex-column h-100">
+              <h4 class="card-title" th:text="${ticket.eventoNombre}">Nombre del Evento</h4>
+              <p class="card-text text-secondary fw-bold" th:text="${ticket.descripcion}">Descripción del evento.</p>
+              
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <h5 th:text="'S/' + ${#numbers.formatDecimal(ticket.precio / 100.0, 1, 'COMMA', 2, 'POINT')} + ' PEN'">$15.00 USD</h5>
+                <span class="badge bg-success fs-5" th:text="${ticket.stockActual} + ' disponibles'">10 disponibles</span>
+              </div>
+
+              <div class="mt-3 d-flex gap-2">
+                <input type="number" class="form-control" value="1" min="1" th:max="${ticket.stockActual}" style="width: 80px;" aria-label="Cantidad">
+                <button class="btn bg-verdeClaro text-secondary fw-bold"
+                        th:attr="data-ticket-tipo=${ticket.tipo}, data-ticket-precio=${ticket.precio}"
+                        onclick="agregarAlCarrito(this)">
+                  Agregar al Carrito
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div th:if="${tickets.isEmpty()}" class="text-center">
+        <p class="fs-4">Lo sentimos, no hay tickets disponibles en este momento.</p>
+    </div>
+
+    <div id="carrito-seccion" class="hidden mt-5 p-4 rounded bg-dark">
+      <hr>
+      <h3 class="text-center">Tu Carrito</h3>
+      
+      <ul id="lista-carrito" class="list-group mb-3"></ul>
+      
+      <h4 id="total-carrito" class="text-end">Total: $0.00 USD</h4>
+      
+      <div id="stripe-payment-form">
+          <div id="payment-element" class="my-4"></div>
+          
+          <button id="submit-payment" class="btn btn-success w-100 fw-bold">
+              <div class="spinner-border spinner-border-sm hidden" id="spinner"></div>
+              <span id="button-text">Pagar Ahora</span>
+          </button>
+          
+          <div id="payment-message" class="hidden text-danger text-center mt-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-black text-muted pt-5 pb-4 border-top">
+    <div class="container text-center text-md-start">
+      <div class="row text-center text-md-start">
+        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+          <h5 class="text-uppercase mb-4 font-weight-bold text-white">
+            ANARKIA GAMES
+          </h5>
+          <p class="text-white mt-0 fs-5">&copy;2026</p>
+        </div>
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+          <div class="d-flex align-items-center mb-2">
+            <img th:src="@{/Imagenes/youtube.png}" alt="youtube" class="img-fluid d-block me-2" style="width: 40px" />
+            <h5 class="text-uppercase mb-0 font-weight-bold text-white">
+              ANARKIA GAMES
+            </h5>
+          </div>
+
+          <div class="d-flex align-items-center mb-2">
+            <img th:src="@{/Imagenes/instagram.png}" alt="instagram" class="img-fluid d-block me-2"
+              style="width: 40px" />
+            <h5 class="text-uppercase mb-0 font-weight-bold text-white">
+              ANARKIA GAMES
+            </h5>
+          </div>
+
+          <div class="d-flex align-items-center mb-2">
+            <img th:src="@{/Imagenes/facebook.png}" alt="facebook" class="img-fluid d-block me-2" style="width: 40px" />
+            <h5 class="text-uppercase mb-0 font-weight-bold text-white">
+              ANARKIA GAMES
+            </h5>
+          </div>
+
+          <div class="d-flex align-items-center mb-2">
+            <img th:src="@{/Imagenes/twitter.png}" alt="twitter" class="img-fluid d-block me-2" style="width: 40px" />
+            <h5 class="text-uppercase mb-0 font-weight-bold text-white">
+              ANARKIA GAMES
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <script th:inline="javascript">
+
+    const carrito = [];
+    let elements;
+
+    function agregarAlCarrito(boton) {
+        const cantidadInput = boton.previousElementSibling;
+        const cantidad = parseInt(cantidadInput.value);
+        const tipoTicket = boton.getAttribute('data-ticket-tipo');
+
+        const itemExistente = carrito.find(item => item.tipo === tipoTicket);
+
+        if (itemExistente) {
+            itemExistente.cantidad += cantidad;
+        } else {
+            carrito.push({
+                tipo: tipoTicket,
+                cantidad: cantidad
+            });
+        }
+        actualizarVistaCarrito();
+    }
+
+    function actualizarVistaCarrito() {
+        const listaCarritoEl = document.getElementById('lista-carrito');
+        const totalCarritoEl = document.getElementById('total-carrito');
+        let total = 0;
+        
+        listaCarritoEl.innerHTML = '';
+
+        carrito.forEach(item => {
+
+            const botonOriginal = document.querySelector(`[data-ticket-tipo="${item.tipo}"]`);
+            const precio = parseInt(botonOriginal.getAttribute('data-ticket-precio'));
+            
+            const li = document.createElement('li');
+            li.className = 'list-group-item bg-secondary text-white';
+            li.textContent = `${item.tipo} x ${item.cantidad} - (S/${(precio / 100.0).toFixed(2)} c/u)`;
+            listaCarritoEl.appendChild(li);
+            
+            total += precio * item.cantidad;
+        });
+
+        totalCarritoEl.textContent = `Total: S/${(total / 100.0).toFixed(2)} PEN`;
+        document.getElementById('carrito-seccion').classList.remove('hidden');
+        
+        
+    }
+
+
+
+
+  </script>
+
+</body>
+</html>

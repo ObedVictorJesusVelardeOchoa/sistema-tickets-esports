@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Mi Perfil | ANARKIA GAMES</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/Login.css}">
+    
+    <style>
+        .profile-card { 
+            background-color: #212529; 
+            border: 1px solid #495057; 
+        }
+        .profile-card .list-group-item { 
+            background-color: transparent; 
+            border-color: #495057; 
+        }
+        .profile-card .list-group-item strong { 
+            color: #adb5bd; 
+            font-size: 1.1rem;
+        }
+        .input-nombre-container {
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            .input-nombre-container {
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-black-lower text-white">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top py-3 border-bottom border-secondary">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-white fs-1" th:href="@{/}">ANARKIA GAMER</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item me-lg-2 mb-2 mb-lg-0">
+                        <a class="btn bg-verdeClaro btn-outline-light nav-link text-black px-4 py-2 fw-bold" th:href="@{/Tickets}">Tickets</a>
+                    </li>
+                    <li class="nav-item me-lg-2 mb-2 mb-lg-0">
+                        <a class="nav-link btn bg-verdeClaro btn-outline-light text-white px-4 py-2 fw-bold rounded-pill" th:href="@{/Merch}">Merch</a>
+                    </li>
+                    
+                    <li class="nav-item me-lg-2 mb-2 mb-lg-0" sec:authorize="hasAuthority('Administrador')">
+                        <a class="nav-link btn btn-warning text-dark px-4 py-2 fw-bold" th:href="@{/AdminRegistro}">Panel Admin</a>
+                    </li>
+
+                    <li class="nav-item me-lg-2 mb-2 mb-lg-0" sec:authorize="isAnonymous()">
+                        <a class="nav-link btn bg-verdeClaro btn-outline-light text-white px-4 py-2 fw-bold rounded-pill" th:href="@{/InicioSesion}">Iniciar Sesión</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link btn btn-light btn-outline-anarkia text-white px-4 py-2 fw-bold rounded-pill" th:href="@{/Registrarse}">Registrate</a>
+                    </li>
+
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <a class="nav-link dropdown-toggle btn btn-light btn-outline-anarkia text-white px-4 py-2 fw-bold rounded-pill" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Mi Cuenta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" th:href="@{/perfil}">Ver Perfil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4 my-md-5"> <h1 class="text-center mb-4 display-4">Mi Perfil</h1>
+
+        <div th:if="${param.exito}" class="alert alert-success text-center mx-auto" style="max-width: 600px;" role="alert">
+            ¡Tu nombre ha sido actualizado correctamente!
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="card profile-card shadow-lg">
+                    <div class="card-header text-center fs-4 border-secondary">
+                        Información de la Cuenta
+                    </div>
+                    <div class="card-body p-3 p-md-4" th:object="${usuario}">
+                        
+                        <form th:action="@{/perfil/actualizar-nombre}" method="post" class="mb-3">
+                            <div class="list-group-item d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2">
+                                <strong>Nombre:</strong>
+                                <div class="input-group input-nombre-container">
+                                    <input type="text" name="nuevoNombre" class="form-control" th:value="*{nombre}" required>
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2">
+                                <strong>Correo Electrónico:</strong>
+                                <span th:text="*{correo}" class="text-white">correo@ejemplo.com</span>
+                            </li>
+                            
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <strong>Rol Principal:</strong>
+                                <span th:text="*{rol}" class="badge bg-primary fs-6">Cliente</span>
+                            </li>
+                            
+                            <li class="list-group-item d-flex justify-content-between align-items-center" th:if="*{rol == 'Cliente'}">
+                                <strong>Tipo de Cliente:</strong>
+                                <span th:text="${usuario.tipoCliente}" class="badge bg-info fs-6">Espectador</span>
+                            </li>
+                            
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <strong>Miembro desde:</strong>
+                                <span th:text="${#dates.format(usuario.fecha, 'dd/MM/yyyy')}" class="text-white">01/01/2025</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center border-secondary py-3">
+                        <a th:href="@{/logout}" class="btn btn-danger w-50 w-md-auto">Cerrar Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-black text-muted pt-5 pb-4 border-top mt-auto">
+        <div class="container text-center text-md-start">
+            <div class="row text-center text-md-start">
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-white">ANARKIA GAMES</h5>
+                    <p class="text-white mt-0 fs-5">&copy;2026</p>
+                </div>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <div class="d-flex align-items-center mb-2 justify-content-center justify-content-md-start">
+                        <img th:src="@{/Imagenes/youtube.png}" alt="youtube" class="img-fluid d-block me-2" style="width: 40px" />
+                        <h5 class="text-uppercase mb-0 font-weight-bold text-white">ANARKIA GAMES</h5>
+                    </div>
+                    <div class="d-flex align-items-center mb-2 justify-content-center justify-content-md-start">
+                        <img th:src="@{/Imagenes/instagram.png}" alt="instagram" class="img-fluid d-block me-2" style="width: 40px" />
+                        <h5 class="text-uppercase mb-0 font-weight-bold text-white">ANARKIA GAMES</h5>
+                    </div>
+                    <div class="d-flex align-items-center mb-2 justify-content-center justify-content-md-start">
+                        <img th:src="@{/Imagenes/facebook.png}" alt="facebook" class="img-fluid d-block me-2" style="width: 40px" />
+                        <h5 class="text-uppercase mb-0 font-weight-bold text-white">ANARKIA GAMES</h5>
+                    </div>
+                    <div class="d-flex align-items-center mb-2 justify-content-center justify-content-md-start">
+                        <img th:src="@{/Imagenes/twitter.png}" alt="twitter" class="img-fluid d-block me-2" style="width: 40px" />
+                        <h5 class="text-uppercase mb-0 font-weight-bold text-white">ANARKIA GAMES</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
