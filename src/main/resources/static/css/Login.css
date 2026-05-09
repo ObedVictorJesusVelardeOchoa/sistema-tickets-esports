@@ -1,0 +1,76 @@
+body {
+    font-family: "Teko", sans-serif;
+    background-color: black; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+  }
+  .bg-black-lower{
+    background-color: #1E1E1E;
+  }
+  .bg-black-medium{
+    background-color: #2A2A2A;
+  }
+
+  .bg-verdeClaro{
+    background-color: rgb(128, 10, 10);
+  }
+  a:hover{
+    color:#1E1E1E;
+  }
+  .bg-verdeClaro:hover{
+    background-color: #ffffff;
+    color: black;
+  }
+  .btn-outline-anarkia{
+      border: 2px solid rgb(128, 10, 10);
+  }
+  .py-10 {
+      
+      padding-top: 26.5rem !important;
+      padding-bottom: 26.5rem !important;
+  }
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .hero-img {
+    max-height: 830px;
+    object-fit: cover;
+  }
+
+  /* SECCIONES DE TEXTO */
+  .section-text {
+    padding: 60px 20px;
+  }
+
+  .section-text h2 {
+    font-size: 4rem;
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+
+  .gallery-img {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 5;
+  }
+
+  #login-section{
+    font-family: 'Berlin Sans FB', sans-serif;
+  }
+
+  /* FOOTER */
+  footer {
+    font-size: 0.85rem;
+    color: #aaa;
+  }
+
+  #forgot-password{
+    color: rgb(128, 10, 10);
+  }
+  @font-face {
+    font-family: 'Berlin Sans FB';
+    src: url('/Fuente/BRLNSR.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
