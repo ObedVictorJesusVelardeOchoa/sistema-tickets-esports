@@ -1,0 +1,50 @@
+body {
+    font-family: "Teko", sans-serif;
+    background-color: black; 
+    color: #fff; 
+  }
+  .bg-black-lower{
+    background-color: #1E1E1E;
+  }
+  .bg-black-medium{
+    background-color: #2A2A2A;
+  }
+
+  .bg-verdeClaro{
+    background-color: rgb(128, 10, 10);
+  }
+  .bg-verdeClaro:hover{
+    background-color: #ffffff;
+    color: black;
+  }
+  .btn-outline-anarkia{
+      border: 2px solid rgb(128, 10, 10);
+  }
+  a:hover{
+    color:#1E1E1E;
+  }
+  .py-10 {
+      
+      padding-top: 26.5rem !important;
+      padding-bottom: 26.5rem !important;
+  }
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+
+  #register-section{
+    font-family: 'Berlin Sans FB', sans-serif;
+  }
+
+  footer {
+    font-size: 0.85rem;
+    color: #aaa;
+  }
+
+  @font-face {
+    font-family: 'Berlin Sans FB';
+    src: url('/Fuente/BRLNSR.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
