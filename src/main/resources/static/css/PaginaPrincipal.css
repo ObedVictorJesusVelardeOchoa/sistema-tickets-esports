@@ -1,0 +1,147 @@
+  body {
+    font-family: "Teko", sans-serif;
+    background-color: black;
+    color: #fff; 
+  }
+  .bg-black-lower{
+    background-color: #1E1E1E;
+  }
+
+  .bg-verdeClaro{
+    background-color: rgb(128, 10, 10);
+  }
+  a:hover{
+    color:#1E1E1E;
+  }
+  .btn-outline-anarkia{
+      border: 2px solid rgb(128, 10, 10);
+  }
+
+  .navbar .nav-link.btn:hover {
+  color: black !important;
+}
+
+
+  .py-10 {
+      
+      padding-top: 26.5rem !important;
+      padding-bottom: 26.5rem !important;
+  }
+ 
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .hero-img {
+    max-height: 830px;
+    object-fit: cover;
+  }
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 830px;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45); 
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 7rem;
+  z-index: 2;
+  padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .hero-text h1 {
+    font-size: 2.8rem;
+  }
+}
+
+
+
+
+.hero-secundario {
+  height: 700px; 
+}
+
+.hero-secundario .hero-text h1 {
+  font-size: 3rem;
+  color: white;
+  font-weight: bold;
+}
+
+.hero-secundario .hero-overlay {
+  background: rgba(0, 0, 0, 0.5); 
+}
+
+.hero-tercero {
+  height: 750px;
+}
+
+.hero-tercero .hero-text h1 {
+  font-size: 2.8rem;
+  color: white;
+  font-weight: bold;
+  animation: aparecerZoom 1.8s ease-out;
+}
+
+.hero-tercero .hero-overlay {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+
+
+
+
+
+  .gallery-img {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 5;
+  }
+
+  .logos-section {
+    padding: 50px 0;
+  }
+
+  .logos-img {
+    max-width: 800px;
+    width: 90%;
+  }
+
+  #slogan{
+    font-size: 4rem;
+  }
+  .text-white:hover{
+    color: black;
+  }
+
+  footer {
+    font-size: 0.85rem;
+    color: #aaa;
+  }
