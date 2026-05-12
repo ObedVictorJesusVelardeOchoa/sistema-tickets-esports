@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.anarkia.games.dto.VentaTicketDTO;
-import com.anarkia.games.modelo.Administrador;
+
 import com.anarkia.games.modelo.Usuario;
 import com.anarkia.games.repositorio.DetalleFacturaRepositorio;
-import com.anarkia.games.service.AdministradorService;
+
 import com.anarkia.games.service.UsuarioService;
 
 @Controller
 public class registroController {
 
     private final UsuarioService usuarioService;
-    private final AdministradorService administradorService;
+
     private final DetalleFacturaRepositorio detalleFacturaRepositorio;
 
-    public registroController(UsuarioService usuarioService, AdministradorService administradorService,
+    public registroController(UsuarioService usuarioService, 
             DetalleFacturaRepositorio detalleFacturaRepositorio) {
         this.usuarioService = usuarioService;
-        this.administradorService = administradorService;
+
         this.detalleFacturaRepositorio = detalleFacturaRepositorio;
     }
 
@@ -38,7 +38,7 @@ public class registroController {
 
     @GetMapping("/AdminRegistro")
     public String mostrarAdminRegistro(Model model) {
-        List<Administrador> administradores = administradorService.listarAdministradores();
+
         List<Usuario> clientes = usuarioService.obtenerUsuariosPorRol("Cliente");
 
         
@@ -61,7 +61,6 @@ public class registroController {
                 .mapToLong(VentaTicketDTO::getTotalComprado)
                 .sum();
 
-        model.addAttribute("administradores", administradores);
         model.addAttribute("clientes", clientes);
         model.addAttribute("ventasCompetidores", ventasCompetidores);
         model.addAttribute("ventasEspectadores", ventasEspectadores);
