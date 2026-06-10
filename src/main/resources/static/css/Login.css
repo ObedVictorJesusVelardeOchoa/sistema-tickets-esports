@@ -1,28 +1,30 @@
 body {
     font-family: "Teko", sans-serif;
-    background-color: black; /* Fondo negro */
-    color: #fff; /* Texto blanco */
+    background-color:#F8F9FA;
+    color:#212529;
   }
-  .bg-black-lower{
-    background-color: #1E1E1E;
-  }
-  .bg-black-medium{
-    background-color: #2A2A2A;
-  }
+.bg-black-lower{
+    background-color:#FFFFFF;
+}
+.bg-black-medium{
+    background-color:#F1F3F5;
+}
 
-  .bg-verdeClaro{
-    background-color: rgb(128, 10, 10);
-  }
-  a:hover{
-    color:#1E1E1E;
-  }
-  .bg-verdeClaro:hover{
-    background-color: #ffffff;
-    color: black;
-  }
-  .btn-outline-anarkia{
-      border: 2px solid rgb(128, 10, 10);
-  }
+.bg-verdeClaro{
+    background-color:#208c8c;
+    color:white;
+}
+a:hover{
+    color:#cae9ea;
+}
+.bg-verdeClaro:hover{
+    background-color:#cae9ea;
+    color:black;
+}
+.btn-outline-anarkia{
+    border:2px solid #208c8c;
+    color:#208c8c;
+}
   .py-10 {
       
       padding-top: 26.5rem !important;
@@ -62,7 +64,7 @@ body {
   /* FOOTER */
   footer {
     font-size: 0.85rem;
-    color: #aaa;
+    color:#495057;
   }
 
   #forgot-password{
@@ -74,3 +76,19 @@ body {
     font-weight: normal;
     font-style: normal;
   }
+
+  .card{
+    background:white !important;
+    color:#212529;
+    border:none;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+.form-control{
+    border:1px solid #CED4DA;
+}
+
+.navbar .nav-link.btn:hover{
+    background-color:#cae9ea !important;
+    color:black !important;
+}
