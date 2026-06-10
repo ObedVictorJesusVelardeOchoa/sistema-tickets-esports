@@ -1,27 +1,29 @@
   body {
     font-family: "Teko", sans-serif;
-    background-color: black; 
-    color: #fff; 
+    background-color:#F8F9FA;
+    color:#212529;
   }
-  .bg-black-lower{
-    background-color: #1E1E1E;
-  }
-  .bg-black-medium{
-    background-color: #2A2A2A;
-  }
-  a:hover{
-    color:#1E1E1E;
-  }
-  .bg-verdeClaro{
-    background-color: rgb(128, 10, 10);
-  }
-  .bg-verdeClaro:hover{
-    background-color: #ffffff;
-    color: black;
-  }
-  .btn-outline-anarkia{
-      border: 2px solid rgb(128, 10, 10);
-  }
+.bg-black-lower{
+    background-color:#FFFFFF;
+}
+.bg-black-medium{
+    background-color:#F1F3F5;
+}
+a:hover{
+    color:#cae9ea ;
+}
+.bg-verdeClaro{
+    background-color:#208c8c;
+    color:white;
+}
+.bg-verdeClaro:hover{
+    background-color:#cae9ea ;
+    color:black;
+}
+.btn-outline-anarkia{
+    border:2px solid #208c8c;
+    color:#208c8c;
+}
   .py-10 {
       
       padding-top: 26.5rem !important;
@@ -36,6 +38,7 @@
     object-fit: cover;
   }
 
+  /* SECCIONES DE TEXTO */
   .section-text {
     padding: 60px 20px;
   }
@@ -53,7 +56,7 @@
     padding: 5;
   }
 
- 
+  /* LOGOS */
   .logos-section {
     padding: 50px 0;
   }
@@ -70,10 +73,10 @@
     font-family: 'Berlin Sans FB', sans-serif;
   }
 
-
+  /* FOOTER */
   footer {
     font-size: 0.85rem;
-    color: #aaa;
+    color:#495057;
   }
 
   @font-face {
@@ -82,3 +85,61 @@
     font-weight: normal;
     font-style: normal;
   }
+
+.navbar .nav-link.btn{
+    transition: all 0.3s ease;
+}
+
+.navbar .nav-link.btn:hover{
+    background-color:#cae9ea !important;
+    color:black !important;
+}
+
+
+
+  /* =========================
+   TARJETA DESTACADA EVENTO
+========================= */
+
+.evento-destacado{
+    background: linear-gradient(
+        135deg,
+        #208c8c,
+        #cae9ea 
+    );
+    color:black;
+    box-shadow: 0 10px 25px rgba(37,99,235,0.30);
+}
+
+.evento-destacado .card-title{
+    letter-spacing: 1px;
+}
+
+.info-evento{
+    background: rgba(255,255,255,0.15);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.precio-box{
+    background: rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    font-size:1.2rem;
+}
+
+.precio-box strong{
+    font-size:1.5rem;
+}
+
+.evento-destacado:hover{
+    transform: translateY(-3px);
+    transition: 0.3s ease;
+}
