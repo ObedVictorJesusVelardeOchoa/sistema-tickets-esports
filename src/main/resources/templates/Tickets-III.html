@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tickets | ANARKIA GAMES</title>
+  <title>Tickets | ANARKYA GAMES</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,10 +17,10 @@
   </style>
 </head>
 
-<body class="bg-black-lower text-white">
+<body class="bg-black-lower">
   <nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top py-3 border-bottom border-secondary">
         <div class="container">
-            <a class="navbar-brand fw-bold text-white fs-1" th:href="@{/}">ANARKIA GAMES</a>
+            <a class="navbar-brand fw-bold text-white fs-1" th:href="@{/}">ANARKYA GAMES</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -68,16 +68,18 @@
           <div class="col-md-8">
             <div class="card-body d-flex flex-column h-100">
               <h4 class="card-title" th:text="${ticket.eventoNombre}">Nombre del Evento</h4>
-              <p class="card-text text-secondary fw-bold" th:text="${ticket.descripcion}">Descripción del evento.</p>
+              <p class="card-text" th:text="${ticket.descripcion}">Descripción del evento.</p>
               
               <div class="d-flex justify-content-between align-items-center mt-auto">
                 <h5 th:text="'S/' + ${#numbers.formatDecimal(ticket.precio / 100.0, 1, 'COMMA', 2, 'POINT')} + ' PEN'">$15.00 USD</h5>
-                <span class="badge bg-success fs-5" th:text="${ticket.stockActual} + ' disponibles'">10 disponibles</span>
+                <span class="badge bg-success fs-5 stock-disponible"
+                 th:attr="data-stock=${ticket.stockActual}"
+                 th:text="${ticket.stockActual} + ' disponibles'">10 disponibles</span>
               </div>
 
               <div class="mt-3 d-flex gap-2">
                 <input type="number" class="form-control" value="1" min="1" th:max="${ticket.stockActual}" style="width: 80px;" aria-label="Cantidad">
-                <button class="btn bg-verdeClaro text-secondary fw-bold"
+                <button class="btn bg-verdeClaro fw-bold"
                         th:attr="data-ticket-tipo=${ticket.tipo}, data-ticket-precio=${ticket.precio}"
                         onclick="agregarAlCarrito(this)">
                   Agregar al Carrito
@@ -119,7 +121,7 @@
       <div class="row text-center text-md-start">
         <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
           <h5 class="text-uppercase mb-4 font-weight-bold text-white">
-            ANARKIA GAMES
+            ANARKYA GAMES
           </h5>
           <p class="text-white mt-0 fs-5">&copy;2026</p>
         </div>
@@ -127,7 +129,7 @@
           <div class="d-flex align-items-center mb-2">
             <img th:src="@{/Imagenes/youtube.png}" alt="youtube" class="img-fluid d-block me-2" style="width: 40px" />
             <h5 class="text-uppercase mb-0 font-weight-bold text-white">
-              ANARKIA GAMES
+              ANARKYA GAMES
             </h5>
           </div>
 
@@ -135,21 +137,21 @@
             <img th:src="@{/Imagenes/instagram.png}" alt="instagram" class="img-fluid d-block me-2"
               style="width: 40px" />
             <h5 class="text-uppercase mb-0 font-weight-bold text-white">
-              ANARKIA GAMES
+              ANARKYA GAMES
             </h5>
           </div>
 
           <div class="d-flex align-items-center mb-2">
             <img th:src="@{/Imagenes/facebook.png}" alt="facebook" class="img-fluid d-block me-2" style="width: 40px" />
             <h5 class="text-uppercase mb-0 font-weight-bold text-white">
-              ANARKIA GAMES
+              ANARKYA GAMES
             </h5>
           </div>
 
           <div class="d-flex align-items-center mb-2">
             <img th:src="@{/Imagenes/twitter.png}" alt="twitter" class="img-fluid d-block me-2" style="width: 40px" />
             <h5 class="text-uppercase mb-0 font-weight-bold text-white">
-              ANARKIA GAMES
+              ANARKYA GAMES
             </h5>
           </div>
         </div>
@@ -163,25 +165,66 @@
   <script th:inline="javascript">
 
     const carrito = [];
+    const stripePublicKey = /*[[${@environment.getProperty('stripe.api.publicKey')}]]*/ 'pk_test_51Te4CtPx2UBoFqRHzLC3w44Q2Pov2C3zqNnl9ORtPOjbXwrFFo7zSee3fzktJmwASnruMqrDNbe4zqZNt4CteCSY002JEzIHkN';
+    const stripe = Stripe(stripePublicKey);
+    const paymentForm = document.getElementById('stripe-payment-form');
     let elements;
 
-    function agregarAlCarrito(boton) {
-        const cantidadInput = boton.previousElementSibling;
-        const cantidad = parseInt(cantidadInput.value);
-        const tipoTicket = boton.getAttribute('data-ticket-tipo');
 
-        const itemExistente = carrito.find(item => item.tipo === tipoTicket);
+function agregarAlCarrito(boton) {
 
-        if (itemExistente) {
-            itemExistente.cantidad += cantidad;
-        } else {
-            carrito.push({
-                tipo: tipoTicket,
-                cantidad: cantidad
-            });
-        }
-        actualizarVistaCarrito();
+    const cantidadInput = boton.previousElementSibling;
+    const cantidad = parseInt(cantidadInput.value);
+
+    const tipoTicket =
+        boton.getAttribute("data-ticket-tipo");
+
+    const card =
+        boton.closest(".card-body");
+
+    const stockBadge =
+        card.querySelector(".stock-disponible");
+
+    let stockActual =
+        parseInt(stockBadge.dataset.stock);
+
+    if (cantidad > stockActual) {
+
+        alert(
+            "No hay suficiente stock disponible"
+        );
+
+        return;
     }
+
+    stockActual -= cantidad;
+
+    stockBadge.dataset.stock = stockActual;
+
+    stockBadge.textContent =
+        stockActual + " disponibles";
+
+    cantidadInput.max = stockActual;
+
+    const itemExistente =
+        carrito.find(
+            item => item.tipo === tipoTicket
+        );
+
+    if (itemExistente) {
+
+        itemExistente.cantidad += cantidad;
+
+    } else {
+
+        carrito.push({
+            tipo: tipoTicket,
+            cantidad: cantidad
+        });
+    }
+
+    actualizarVistaCarrito();
+}
 
     function actualizarVistaCarrito() {
         const listaCarritoEl = document.getElementById('lista-carrito');
@@ -206,12 +249,72 @@
         totalCarritoEl.textContent = `Total: S/${(total / 100.0).toFixed(2)} PEN`;
         document.getElementById('carrito-seccion').classList.remove('hidden');
         
-        
+        iniciarPagoStripe();
     }
 
 
 
+async function iniciarPagoStripe() {
 
+    const response = await fetch("/create-payment-intent-carrito", {
+
+        method: "POST", 
+        
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: carrito }),
+    });
+    
+    
+    if (!response.ok) {
+        showMessage("Error al contactar con el servidor. Revisa la consola de Spring Boot.");
+        return;
+    }
+
+    const { clientSecret } = await response.json();
+
+
+    elements = stripe.elements({ clientSecret, appearance: { theme: 'night' } });
+
+    const paymentElement = elements.create("payment");
+    paymentElement.mount("#payment-element");
+}
+
+    document.getElementById('submit-payment').addEventListener("click", handleSubmit);
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setLoading(true);
+
+        const { error } = await stripe.confirmPayment({
+            elements,
+            confirmParams: {
+                return_url: window.location.origin + "/pago-exitoso",
+            },
+        });
+
+        if (error.type === "card_error" || error.type === "validation_error") {
+            showMessage(error.message);
+        } else {
+            showMessage("Ocurrió un error inesperado.");
+        }
+        setLoading(false);
+    }
+    
+    function setLoading(isLoading) {
+        document.getElementById('submit-payment').disabled = isLoading;
+        document.getElementById('spinner').classList.toggle('hidden', !isLoading);
+        document.getElementById('button-text').classList.toggle('hidden', isLoading);
+    }
+
+    function showMessage(messageText) {
+        const messageContainer = document.getElementById("payment-message");
+        messageContainer.classList.remove("hidden");
+        messageContainer.textContent = messageText;
+        setTimeout(() => {
+            messageContainer.classList.add("hidden");
+            messageContainer.textContent = "";
+        }, 5000);
+    }
   </script>
 
 </body>

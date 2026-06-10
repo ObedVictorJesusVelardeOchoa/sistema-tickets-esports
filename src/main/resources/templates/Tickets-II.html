@@ -9,10 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" th:href="@{/css/Tickets-II.css}">
-  <title>ANARKIA GAMES</title>
+  <title>ANARKYA GAMES</title>
 </head>
 
-<body class="bg-black-lower text-white">
+<body class="bg-black-lower">
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top py-3 border-bottom border-secondary">
         <div class="container">
@@ -26,19 +26,19 @@
                         <a class="btn bg-verdeClaro btn-outline-light nav-link text-black px-4 py-2 fw-bold" th:href="@{/Tickets}">Tickets</a>
                     </li>
                     <li class="nav-item me-lg-2 mb-2 mb-lg-0">
-                        <a class="nav-link btn bg-verdeClaro btn-outline-light text-white px-4 py-2 fw-bold rounded-pill" th:href="@{/Merch}">Merch</a>
+                        <a class="nav-link btn bg-verdeClaro btn-outline-light px-4 py-2 fw-bold rounded-pill" th:href="@{/Merch}">Merch</a>
                     </li>
                     <li class="nav-item me-lg-2 mb-2 mb-lg-0" sec:authorize="hasAuthority('Administrador')">
                         <a class="nav-link btn btn-warning text-dark px-4 py-2 fw-bold" th:href="@{/AdminRegistro}">Panel Admin</a>
                     </li>
                     <li class="nav-item me-lg-2 mb-2 mb-lg-0" sec:authorize="isAnonymous()">
-                        <a class="nav-link btn bg-verdeClaro btn-outline-light text-white px-4 py-2 fw-bold rounded-pill" th:href="@{/InicioSesion}">Iniciar Sesión</a>
+                        <a class="nav-link btn bg-verdeClaro btn-outline-light px-4 py-2 fw-bold rounded-pill" th:href="@{/InicioSesion}">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a class="nav-link btn btn-light btn-outline-anarkia text-white px-4 py-2 fw-bold rounded-pill" th:href="@{/Registrarse}">Registrate</a>
+                        <a class="nav-link btn btn-light btn-outline-anarkia px-4 py-2 fw-bold rounded-pill" th:href="@{/Registrarse}">Registrate</a>
                     </li>
                     <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                        <a class="nav-link dropdown-toggle btn btn-light btn-outline-anarkia text-white px-4 py-2 fw-bold rounded-pill" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle btn btn-light btn-outline-anarkia px-4 py-2 fw-bold rounded-pill" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Mi Cuenta
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
@@ -74,7 +74,7 @@
       <div class="row text-center text-md-start">
         <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
           <h5 class="text-uppercase mb-4 font-weight-bold text-white">
-            ANARKIA GAMES
+            ANARKYA GAMES
           </h5>
           <p class="text-white mt-0 fs-5">&copy;2026</p>
         </div>
@@ -82,7 +82,7 @@
           <div class="d-flex align-items-center mb-2">
             <img th:src="@{/Imagenes/youtube.png}" alt="youtube" class="img-fluid d-block me-2" style="width: 40px" />
             <h5 class="text-uppercase mb-0 font-weight-bold text-white">
-              ANARKIA GAMES
+              ANARKYA GAMES
             </h5>
           </div>
 
@@ -90,21 +90,21 @@
             <img th:src="@{/Imagenes/instagram.png}" alt="instagram" class="img-fluid d-block me-2"
               style="width: 40px" />
             <h5 class="text-uppercase mb-0 font-weight-bold text-white">
-              ANARKIA GAMES
+              ANARKYA GAMES
             </h5>
           </div>
 
           <div class="d-flex align-items-center mb-2">
             <img th:src="@{/Imagenes/facebook.png}" alt="facebook" class="img-fluid d-block me-2" style="width: 40px" />
             <h5 class="text-uppercase mb-0 font-weight-bold text-white">
-              ANARKIA GAMES
+              ANARKYA GAMES
             </h5>
           </div>
 
           <div class="d-flex align-items-center mb-2">
             <img th:src="@{/Imagenes/twitter.png}" alt="twitter" class="img-fluid d-block me-2" style="width: 40px" />
             <h5 class="text-uppercase mb-0 font-weight-bold text-white">
-              ANARKIA GAMES
+              ANARKYA GAMES
             </h5>
           </div>
         </div>

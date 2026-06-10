@@ -1,23 +1,25 @@
 body {
   font-family: "Teko", sans-serif;
-  background-color: black;
-  color: white;
+    background-color:#F8F9FA;
+    color:#212529;
 }
-.bg-black-lower {
-  background-color: #1E1E1E;
+.bg-black-lower{
+    background-color:#FFFFFF;
 }
-  .bg-verdeClaro{
-    background-color:rgb(128, 10, 10);
-  }
-  .bg-verdeClaro:hover{
-    background-color: #ffffff;
-    color: black;
-  }
-  .btn-outline-anarkia{
-      border: 2px solid rgb(128, 10, 10);
-  }
-a:hover {
-  color: #1E1E1E;
+.bg-verdeClaro{
+    background-color:#208c8c;
+    color:white;
+}
+.bg-verdeClaro:hover{
+    background-color:#cae9ea;
+    color:black;
+}
+.btn-outline-anarkia{
+    border:2px solid #208c8c;
+    color:#208c8c;
+}
+a:hover{
+    color:#cae9ea;
 }
 h1 {
   font-size: 4rem;
@@ -26,4 +28,8 @@ img {
   max-height: 300px;
   object-fit: cover;
 }
-  
+
+.navbar .nav-link.btn:hover{
+    background-color:#cae9ea !important;
+    color:black !important;
+}

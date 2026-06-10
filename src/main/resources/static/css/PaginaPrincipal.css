@@ -1,21 +1,23 @@
   body {
     font-family: "Teko", sans-serif;
-    background-color: black;
-    color: #fff; 
+    background-color:#F8F9FA;
+    color:#212529;
   }
-  .bg-black-lower{
-    background-color: #1E1E1E;
-  }
+.bg-black-lower{
+    background-color:#212529;
+}
 
-  .bg-verdeClaro{
-    background-color: rgb(128, 10, 10);
-  }
-  a:hover{
-    color:#1E1E1E;
-  }
-  .btn-outline-anarkia{
-      border: 2px solid rgb(128, 10, 10);
-  }
+.bg-verdeClaro{
+    background-color:#208c8c;
+    color:white;
+}
+a:hover{
+    color:#cae9ea;
+}
+.btn-outline-anarkia{
+    border:2px solid #208c8c;
+    color:#208c8c;
+}
 
   .navbar .nav-link.btn:hover {
   color: black !important;
@@ -27,16 +29,18 @@
       padding-top: 26.5rem !important;
       padding-bottom: 26.5rem !important;
   }
- 
+  /* NAVBAR */
   .navbar-brand {
     font-size: 1.5rem;
   }
 
+  /* HERO */
   .hero-img {
     max-height: 830px;
     object-fit: cover;
   }
 
+  /* --- HERO CON VIDEO --- */
 .hero {
   position: relative;
   width: 100%;
@@ -44,6 +48,7 @@
   overflow: hidden;
 }
 
+/* Video de fondo */
 .hero-video {
   position: absolute;
   top: 0;
@@ -53,22 +58,24 @@
   object-fit: cover;
 }
 
+/* Capa oscura encima */
 .hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.45); 
+  background:rgba(255,255,255,0.25);
 }
 
+/* Texto centrado encima del video */
 .hero-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: white;
+    color:#212529;
   font-weight: bold;
   font-size: 7rem;
   z-index: 2;
@@ -84,6 +91,7 @@
 
 
 
+/* --- Segunda sección HERO --- */
 .hero-secundario {
   height: 700px; 
 }
@@ -118,6 +126,7 @@
 
 
 
+  /* GALERÍA */
   .gallery-img {
     display: block;
     width: 100%;
@@ -125,6 +134,7 @@
     padding: 5;
   }
 
+  /* LOGOS */
   .logos-section {
     padding: 50px 0;
   }
@@ -141,7 +151,17 @@
     color: black;
   }
 
+  /* FOOTER */
   footer {
     font-size: 0.85rem;
-    color: #aaa;
+    color:#495057;
   }
+
+  .navbar .nav-link.btn{
+    transition: all 0.3s ease;
+}
+
+.navbar .nav-link.btn:hover{
+    background-color:#cae9ea !important;
+    color:black !important;
+}
