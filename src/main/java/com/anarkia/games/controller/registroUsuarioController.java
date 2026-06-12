@@ -59,8 +59,15 @@ public class registroUsuarioController {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(registroDTO.getEmail());
-            message.setSubject("Bienvenido a Anarkia Games 🎮");
-            message.setText("Hola " + registroDTO.getNombre() + ", tu cuenta ha sido registrada exitosamente.");
+            message.setSubject("Bienvenido a Anarkya Games 🎮");
+            message.setText(
+                "¡Hola " + registroDTO.getNombre() + "!\n\n" +
+                "Te damos la bienvenida a Anarkya Games 🎮.\n\n" +
+                "Tu cuenta ha sido registrada correctamente y ya puedes acceder a nuestra plataforma para explorar eventos, adquirir entradas y disfrutar de la mejor experiencia gamer.\n\n" +
+                "Gracias por formar parte de nuestra comunidad.\n\n" +
+                "Atentamente,\n" +
+                "Equipo de Anarkya Games"
+            );
             mailSender.send(message);
             logger.info("✅ Correo de bienvenida enviado a {}.", registroDTO.getEmail());
         } catch (Exception e) {
