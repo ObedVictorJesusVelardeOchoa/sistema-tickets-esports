@@ -122,8 +122,16 @@ public Usuario guardar(UsuarioRegistroDTO registroDTO) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(usuario.getCorreo());
         message.setSubject("Código de Recuperación de Contraseña");
-        message.setText("Tu código de recuperación es: " + token + 
-                        "\nEste código expirará en 15 minutos.");
+        message.setText(
+            "Hola,\n\n" +
+            "Hemos recibido una solicitud para restablecer la contraseña de tu cuenta en Anarkya Games.\n\n" +
+            "Tu código de recuperación es:\n\n" +
+            token + "\n\n" +
+            "Por motivos de seguridad, este código expirará en 15 minutos.\n\n" +
+            "Si no solicitaste este cambio, puedes ignorar este mensaje de forma segura.\n\n" +
+            "Atentamente,\n" +
+            "Equipo de Anarkya Games 🎮"
+        );
         mailSender.send(message);
     }
 
